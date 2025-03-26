@@ -4,7 +4,7 @@ Certainly! Based on the contents of your repository, here’s a suggested README
 
 Molecular Dynamics Simulation of Human Insulin
 
-This repository contains files and scripts related to the molecular dynamics (MD) simulation of human insulin, focusing on the structural analysis and behavior of the insulin protein under various conditions.
+This repository contains files and scripts related to the molecular dynamics (MD) simulation of human insulin using the CHARMM force field, focusing on the structural analysis and behavior of the insulin protein under various conditions.
 
 Repository Structure
 -	PDB Files:
