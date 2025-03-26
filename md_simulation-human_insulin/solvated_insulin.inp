@@ -1,0 +1,52 @@
+*Insulin solvation in sphere
+*
+open read unit 1 card name top_all27_prot_na.inp
+read rtf card unit 1
+close unit 1
+
+open read card unit 2 name par_all27_prot_na.inp
+read para card unit 2
+close unit 2
+
+open read card unit 27 name minimize_3i40.psf
+read psf card unit 27
+close unit 27
+
+open read card unit 23 name minimize_3i40.pdb
+read coor pdb unit 23
+close unit 23
+
+!to know the coordinates
+coordinate statistics segid PROT
+coordinate translate xdirection -?XAVE ydirection -?YAVE zdirection -?ZAVE
+
+!introducing sphere solvent 
+open read card unit 25 name sphere37.crd
+read sequence coor unit 25
+generate BOX setup noangle nodihedral
+
+rewind unit 25
+
+read coor card append unit 25
+close unit 25
+
+!centering the water sphere
+coordinate orient noro select segid BOX end
+
+!Deleting waters which overlap protein
+delete atom select (.byres. ( (segid PROT .around. 2.5 ) .and. (segid BOX .and. (type oh2 .or. type h1 .or. type h2)))) end
+
+!Deleting the water way too far form the protein
+delete atom  select (.byres. (.not. (segid PROT .around. 8.0) .and. (segid BOX .and. (type oh2 .or. type h1 .or. type h2)))) end 
+
+join PROT BOX renumber
+
+rename segid SOLV select segid PROT end
+
+open write card unit 27 name solvated_3i40.psf
+write psf card unit 27
+
+open write card unit 21 name solvated_3i40.pdb
+write coor pdb unit 21
+
+stop

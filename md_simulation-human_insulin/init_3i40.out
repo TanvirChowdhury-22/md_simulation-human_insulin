@@ -1,0 +1,328 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+                (CHARMM) - Free Version 43b2   February 15, 2019                
+                                Revision unknown                                
+       Copyright(c) 1984-2014  President and Fellows of Harvard College
+                              All Rights Reserved
+  Current operating system: Linux-5.0.0-37-generic(x86_64)@tanvir-HP-Pavilion   
+                 Created on  1/10/20 at  3:25:48 by user: tanvir      
+
+            Maximum number of ATOMS:    360720, and RESidues:      120240
+ RDTITL> *INSULIN SETUP INPUT SCRIPT
+ RDTITL> *
+  
+ CHARMM>    open read unit 1 card name top_all27_prot_na.inp
+ VOPEN> Attempting to open::top_all27_prot_na.inp::
+ OPNLGU> Unit  1 opened for READONLY access to top_all27_prot_na.inp
+  
+ CHARMM>    read rtf card unit 1
+ MAINIO> Residue topology file being read from unit   1.
+ TITLE> *>>>>>>>>CHARMM22 ALL-HYDROGEN TOPOLOGY FILE FOR PROTEINS <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>   JULY, 2004    <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+  
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    open read card unit 2 name par_all27_prot_na.inp
+ VOPEN> Attempting to open::par_all27_prot_na.inp::
+ OPNLGU> Unit  2 opened for READONLY access to par_all27_prot_na.inp
+  
+ CHARMM>    read para card unit 2
+
+          PARAMETER FILE BEING READ FROM UNIT  2
+ TITLE> *>>>>> CHARMM22 ALL-HYDROGEN PARAMETER FILE FOR PROTEINS <<<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>> DECEMBER, 2003 <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+  
+ CHARMM>    close unit 2
+ VCLOSE: Closing unit    2 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    open read card unit 21 name 3i40_proa.pdb
+ VOPEN> Attempting to open::3i40_proa.pdb::
+ OPNLGU> Unit 21 opened for READONLY access to 3i40_proa.pdb
+  
+ CHARMM>    read sequ pdb unit 21
+ MAINIO> Sequence information being read from unit  21.
+ TITLE>     HORMONE                                 01-JUL-09   3I40
+ TITLE>  *
+
+          RESIDUE SEQUENCE --    21 RESIDUES
+          GLY ILE VAL GLU GLN CYS CYS THR SER ILE CYS SER LEU TYR GLN LEU GLU ASN TYR CYS 
+          ASN 
+ ***** Message from SEQRDR ***** THE SYSTEM CONTAINS  4 TITRATABLE GROUPS
+ THE USER MUST PREDETERMINE THE PROTONATION STATE THROUGH THE SEQUENCE AND RTF
+ HIS -  0  HSD -  0  HSE -  0  HSP -  0  ASP -  0  GLU -  2  LYS -  0  TYR -  2
+  
+ CHARMM>    generate PROA setup
+ THE PATCH 'GLYP' WILL BE USED FOR THE FIRST RESIDUE
+ THE PATCH 'CTER' WILL BE USED FOR THE LAST  RESIDUE
+ GENPSF> Segment   1 has been generated. Its identifier is PROA.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =       21
+         Number of atoms         =      316   Number of groups     =      101
+         Number of bonds         =      317   Number of angles     =      564
+         Number of dihedrals     =      823   Number of impropers  =       59
+         Number of cross-terms   =       19
+         Number of HB acceptors  =       35   Number of HB donors  =       40
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>     
+  
+ CHARMM>    rewind unit 21
+                    REWINDING UNIT    21
+  
+ CHARMM>     
+  
+ CHARMM>    open read card unit 23 name 3i40_prob.pdb
+ VOPEN> Attempting to open::3i40_prob.pdb::
+ OPNLGU> Unit 23 opened for READONLY access to 3i40_prob.pdb
+  
+ CHARMM>    read sequ pdb unit 23
+ MAINIO> Sequence information being read from unit  23.
+ TITLE>     HORMONE                                 01-JUL-09   3I40
+ TITLE>  *
+
+          RESIDUE SEQUENCE --    30 RESIDUES
+          PHE VAL ASN GLN HSD LEU CYS GLY SER HSD LEU VAL GLU ALA LEU TYR LEU VAL CYS GLY 
+          GLU ARG GLY PHE PHE TYR THR PRO LYS ALA 
+ ***** Message from SEQRDR ***** THE SYSTEM CONTAINS  7 TITRATABLE GROUPS
+ THE USER MUST PREDETERMINE THE PROTONATION STATE THROUGH THE SEQUENCE AND RTF
+ HIS -  0  HSD -  2  HSE -  0  HSP -  0  ASP -  0  GLU -  2  LYS -  1  TYR -  2
+  
+ CHARMM>    generate PROB setup
+ THE PATCH 'NTER' WILL BE USED FOR THE FIRST RESIDUE
+ THE PATCH 'CTER' WILL BE USED FOR THE LAST  RESIDUE
+ GENPSF> Segment   2 has been generated. Its identifier is PROB.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =       51
+         Number of atoms         =      788   Number of groups     =      252
+         Number of bonds         =      796   Number of angles     =     1421
+         Number of dihedrals     =     2081   Number of impropers  =      141
+         Number of cross-terms   =       47
+         Number of HB acceptors  =       78   Number of HB donors  =       91
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>     
+  
+ CHARMM>    rewind unit 23
+                    REWINDING UNIT    23
+  
+ CHARMM>     
+  
+ CHARMM>    read coor pdb unit 21
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 21
+ TITLE>     HORMONE                                 01-JUL-09   3I40
+ TITLE>  *
+
+ ** WARNING ** For atom in coordinate file, the corresponding residue in the PSF lacks that atom:
+ INDEX=  158 IRES=   21 RESID=21   RES=ASN  ATOM=O   
+ ** WARNING ** After reading, there are no coordinates for selected atom:     2     1 GLY  HT1 
+ ** WARNING ** After reading, there are no coordinates for selected atom:     3     1 GLY  HT2 
+ ** WARNING ** After reading, there are no coordinates for selected atom:     4     1 GLY  HT3 
+ ** WARNING ** After reading, there are no coordinates for selected atom:     6     1 GLY  HA1 
+ ** WARNING ** After reading, there are no coordinates for selected atom:     7     1 GLY  HA2 
+ ** WARNING ** After reading, there are no coordinates for selected atom:    11     2 ILE  HN  
+ ** WARNING ** After reading, there are no coordinates for selected atom:    13     2 ILE  HA  
+ ** WARNING ** After reading, there are no coordinates for selected atom:    15     2 ILE  HB  
+ ** WARNING ** After reading, there are no coordinates for selected atom:    17     2 ILE  HG21
+ ** WARNING ** After reading, there are no coordinates for selected atom:    18     2 ILE  HG22
+
+ ** A total of   626 selected atoms have no coordinates
+ *** LEVEL  2 WARNING *** BOMLEV IS    0
+  
+ CHARMM>    close unit 21
+ VCLOSE: Closing unit   21 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    !appending the chain B pdb to chain A pdb
+ CHARMM>    read coor pdb unit 23 append
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 23
+ A RESIDUE OFFSET OF  21 WILL BE USED.
+ INFO: A subset of total atoms will be read.
+
+ TITLE>     HORMONE                                 01-JUL-09   3I40
+ TITLE>  *
+
+ ** WARNING ** For atom in coordinate file, the corresponding residue in the PSF lacks that atom:
+ INDEX=  238 IRES=   51 RESID=30   RES=ALA  ATOM=O   
+ ** WARNING ** After reading, there are no coordinates for selected atom:   318    22 PHE  HT1 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   319    22 PHE  HT2 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   320    22 PHE  HT3 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   322    22 PHE  HA  
+ ** WARNING ** After reading, there are no coordinates for selected atom:   324    22 PHE  HB1 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   325    22 PHE  HB2 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   328    22 PHE  HD1 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   330    22 PHE  HE1 
+ ** WARNING ** After reading, there are no coordinates for selected atom:   332    22 PHE  HZ  
+ ** WARNING ** After reading, there are no coordinates for selected atom:   334    22 PHE  HD2 
+
+ ** A total of   233 selected atoms have no coordinates
+ *** LEVEL  2 WARNING *** BOMLEV IS    0
+  
+ CHARMM>    close unit 23
+ VCLOSE: Closing unit   23 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    !patching the Disulfide bonds together
+ CHARMM>    patch disu PROA 6 PROA 11 setup warn
+ ATOM  PROA 6    CYS  HG1  AND ALL REFERENCES TO IT DELETED.
+ ATOM  PROA 11   CYS  HG1  AND ALL REFERENCES TO IT DELETED.
+
+ Message from MAPIC: Atom numbers are changed.
+ DELTIC:         2 bonds deleted
+ DELTIC:         2 angles deleted
+ DELTIC:         6 dihedrals deleted
+ DELTIC:         2 donors deleted
+ PATCH: Check angles and dihedrals autogenerated.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =       51
+         Number of atoms         =      786   Number of groups     =      252
+         Number of bonds         =      795   Number of angles     =     1419
+         Number of dihedrals     =     2075   Number of impropers  =      141
+         Number of cross-terms   =       47
+         Number of HB acceptors  =       78   Number of HB donors  =       89
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>    patch disu PROA 7 PROB 7 setup warn
+ ATOM  PROA 7    CYS  HG1  AND ALL REFERENCES TO IT DELETED.
+ ATOM  PROB 7    CYS  HG1  AND ALL REFERENCES TO IT DELETED.
+
+ Message from MAPIC: Atom numbers are changed.
+ DELTIC:         2 bonds deleted
+ DELTIC:         2 angles deleted
+ DELTIC:         6 dihedrals deleted
+ DELTIC:         2 donors deleted
+ PATCH: Check angles and dihedrals autogenerated.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =       51
+         Number of atoms         =      784   Number of groups     =      252
+         Number of bonds         =      794   Number of angles     =     1417
+         Number of dihedrals     =     2069   Number of impropers  =      141
+         Number of cross-terms   =       47
+         Number of HB acceptors  =       78   Number of HB donors  =       87
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>    patch disu PROA 20 PROB 19 setup warn
+ ATOM  PROA 20   CYS  HG1  AND ALL REFERENCES TO IT DELETED.
+ ATOM  PROB 19   CYS  HG1  AND ALL REFERENCES TO IT DELETED.
+
+ Message from MAPIC: Atom numbers are changed.
+ DELTIC:         2 bonds deleted
+ DELTIC:         2 angles deleted
+ DELTIC:         6 dihedrals deleted
+ DELTIC:         2 donors deleted
+ PATCH: Check angles and dihedrals autogenerated.
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        2   Number of residues   =       51
+         Number of atoms         =      782   Number of groups     =      252
+         Number of bonds         =      793   Number of angles     =     1415
+         Number of dihedrals     =     2063   Number of impropers  =      141
+         Number of cross-terms   =       47
+         Number of HB acceptors  =       78   Number of HB donors  =       85
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>     
+  
+ CHARMM>    ic fill
+  
+ CHARMM>    ic para
+  
+ CHARMM>    ic build
+  
+ CHARMM>     
+  
+ CHARMM>    hbuild
+
+      ***** LEVEL  4 WARNING FROM <GTHBUI> *****
+      ***** Zero selection specified
+      ******************************************
+      BOMLEV (  0) IS NOT REACHED. WRNLEV IS  5
+
+  
+ CHARMM>     
+  
+ CHARMM>    !joining segid PROB to PROA renumbering the residues
+ CHARMM>    join PROA PROB renumber
+ SEGMENTS "PROA" AND "PROB" HAVE BEEN JOINED.
+ THE RESIDUE IDENTIFIERS HAVE BEEN RENUMBERED
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =       51
+         Number of atoms         =      782   Number of groups     =      252
+         Number of bonds         =      793   Number of angles     =     1415
+         Number of dihedrals     =     2063   Number of impropers  =      141
+         Number of cross-terms   =       47
+         Number of HB acceptors  =       78   Number of HB donors  =       85
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>     
+  
+ CHARMM>    !renaming the segid PROA by PROT
+ CHARMM>    rename segid PROT select segid PROA end
+ SELRPN>    782 atoms have been selected out of    782
+ SEGMENT 'PROA' IS RENAMED TO 'PROT'
+  
+ CHARMM>     
+  
+ CHARMM>    open write formatted unit 29 name init_3i40.psf
+ VOPEN> Attempting to open::init_3i40.psf::
+ OPNLGU> Unit 29 opened for WRITE access to init_3i40.psf
+  
+ CHARMM>    write psf card unit 29
+ RDTITL>  
+ RDTITL> No title read.
+  
+ CHARMM>     
+  
+ CHARMM>    open write formatted unit 33 name init_3i40.pdb
+ VOPEN> Attempting to open::init_3i40.pdb::
+ OPNLGU> Unit 33 opened for WRITE access to init_3i40.pdb
+  
+ CHARMM>    write coor pdb unit 33
+ RDTITL>  
+ RDTITL> No title read.
+  Write CHARMM-pdb format
+  
+ CHARMM>     
+  
+ CHARMM>    stop
+ VCLOSE: Closing unit   29 with status "KEEP"
+ VCLOSE: Closing unit   33 with status "KEEP"
+
+      $$$$$$  New timer profile Local node$$$$$
+
+ Total time                      0.09 Other:            0.00
+
+         $$$$$$  Average   profile $$$$$
+
+ Total time                      0.09 Other:            0.00
+
+                    NORMAL TERMINATION BY NORMAL STOP
+                    MOST SEVERE WARNING WAS AT LEVEL  2
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:     0.10  SECONDS 
+                         CPU TIME:     0.10  SECONDS 

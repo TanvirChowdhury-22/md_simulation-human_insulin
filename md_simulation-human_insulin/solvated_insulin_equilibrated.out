@@ -1,0 +1,1839 @@
+1
+                 Chemistry at HARvard Macromolecular Mechanics
+                (CHARMM) - Free Version 43b2   February 15, 2019                
+                                Revision unknown                                
+       Copyright(c) 1984-2014  President and Fellows of Harvard College
+                              All Rights Reserved
+  Current operating system: Linux-5.0.0-37-generic(x86_64)@tanvir-HP-Pavilion   
+                 Created on  1/10/20 at  4:53:41 by user: tanvir      
+
+            Maximum number of ATOMS:    360720, and RESidues:      120240
+ RDTITL> *SOLVATED INSULIN EQUILIBRATION
+ RDTITL> *
+  
+ CHARMM>     
+  
+ CHARMM>    open read unit 1 card name top_all27_prot_na.inp
+ VOPEN> Attempting to open::top_all27_prot_na.inp::
+ OPNLGU> Unit  1 opened for READONLY access to top_all27_prot_na.inp
+  
+ CHARMM>    read rtf card unit 1
+ MAINIO> Residue topology file being read from unit   1.
+ TITLE> *>>>>>>>>CHARMM22 ALL-HYDROGEN TOPOLOGY FILE FOR PROTEINS <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>>   JULY, 2004    <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+  
+ CHARMM>    close unit 1
+ VCLOSE: Closing unit    1 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    open read card unit 2 name par_all27_prot_na.inp
+ VOPEN> Attempting to open::par_all27_prot_na.inp::
+ OPNLGU> Unit  2 opened for READONLY access to par_all27_prot_na.inp
+  
+ CHARMM>    read para card unit 2
+
+          PARAMETER FILE BEING READ FROM UNIT  2
+ TITLE> *>>>>> CHARMM22 ALL-HYDROGEN PARAMETER FILE FOR PROTEINS <<<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>> AND NUCLEIC ACIDS <<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> *>>>>> INCLUDES PHI, PSI CROSS TERM MAP (CMAP) CORRECTION <<<<<<<
+ TITLE> *>>>>>>>>>>>>>>>>>>>>>> DECEMBER, 2003 <<<<<<<<<<<<<<<<<<<<<<<<<<
+ TITLE> * ALL COMMENTS TO ADM JR. VIA THE CHARMM WEB SITE: WWW.CHARMM.ORG
+ TITLE> *               PARAMETER SET DISCUSSION FORUM
+ TITLE> *
+ PARMIO> NONBOND, HBOND lists and IMAGE atoms cleared.
+  
+ CHARMM>    close unit 2
+ VCLOSE: Closing unit    2 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    !Load protein-water psf and pdb
+ CHARMM>    open read card unit 23 name solvated_3i40.psf
+ VOPEN> Attempting to open::solvated_3i40.psf::
+ OPNLGU> Unit 23 opened for READONLY access to solvated_3i40.psf
+  
+ CHARMM>    read psf card unit 23
+ MAINIO> Protein structure file being read from unit  23.
+ TITLE>  *INSULIN SOLVATION IN SPHERE
+ TITLE>  *  DATE:     1/10/20      4: 4:54      CREATED BY USER: tanvir
+ TITLE>  *
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =      666
+         Number of atoms         =     2627   Number of groups     =      867
+         Number of bonds         =     2638   Number of angles     =     2030
+         Number of dihedrals     =     2063   Number of impropers  =      141
+         Number of cross-terms   =       47
+         Number of HB acceptors  =      693   Number of HB donors  =       85
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>     
+  
+ CHARMM>    open read card unit 27 name solvated_3i40.pdb
+ VOPEN> Attempting to open::solvated_3i40.pdb::
+ OPNLGU> Unit 27 opened for READONLY access to solvated_3i40.pdb
+  
+ CHARMM>    read coor pdb unit 27
+  read CHARMM-pdb format
+          SPATIAL COORDINATES BEING READ FROM UNIT 27
+ TITLE>  INSULIN SOLVATION IN SPHERE
+ TITLE>    DATE:     1/10/20      4: 4:54      CREATED BY USER: TANVIR
+ TITLE>  *
+  
+ CHARMM>    close unit 27
+ VCLOSE: Closing unit   27 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    !Loading boundary potential for water
+ CHARMM>    open read card unit 21 name bp30.pot
+ VOPEN> Attempting to open::bp30.pot::
+ OPNLGU> Unit 21 opened for READONLY access to bp30.pot
+  
+ CHARMM>    sbound read unit 21
+ SBREAD: boundary potential spline being read from unit  21
+ TITLE> * TIP3P DEFORMABLE BOUNDARY FORCES FOR A SPHERE
+ TITLE> * COMPUTED FOR 31.8 A RADIUS (RCUT= 7.50)
+ TITLE> *  DATE:     9/ 4/96     15:18:56      CREATED BY USER: STOTE
+ TITLE> *
+ SBREAD:        1 cubic spline tables were read
+  
+ CHARMM>    close unit 21
+ VCLOSE: Closing unit   21 with status "KEEP"
+  
+ CHARMM>     
+  
+ CHARMM>    sbound set xreference 0.0 yreference 0.0 zreference 0.0 -
+ CHARMM>        assign 1 select ((resname tip3 .and. type oh2)) end
+ SELRPN>    615 atoms have been selected out of   2627
+ BNDSET:      615 atoms have been assigned to table      1
+ BNDSET: Solvent boundary reference point = (    0.000,   0.000,   0.000 )
+  
+ CHARMM>    !.and. (point 0.0 0.0 0.0 cut 8.0)) end
+ CHARMM>     
+  
+ CHARMM>    shake bonh
+ SHKCOM> SHAKE parameters: TOL =   0.1000D-09 MXITer =    500
+
+            2224 constraints will held by SHAKE.
+  
+ CHARMM>     
+  
+ CHARMM>    !Setting langevin friction coefficient
+ CHARMM>    scalar fbeta set 0.0 select (all) end
+ SELRPN>   2627 atoms have been selected out of   2627
+  
+ CHARMM>    scalar fbeta set 62.0 select ( resname tip3 .and. type oh2) end
+ SELRPN>    615 atoms have been selected out of   2627
+  
+ CHARMM>     
+  
+ CHARMM>    cons fix purge select (.not. (segid SOLV .and. resname tip3)) end
+ CSTRAN: Irreversible compression of PSF is performed.
+ SELRPN>    782 atoms have been selected out of   2627
+ PSFSUM> PSF modified: NONBOND lists and IMAGE atoms cleared.
+ PSFSUM> Summary of the structure file counters :
+         Number of segments      =        1   Number of residues   =      666
+         Number of atoms         =     2627   Number of groups     =      867
+         Number of bonds         =     2638   Number of angles     =      615
+         Number of dihedrals     =        0   Number of impropers  =        0
+         Number of cross-terms   =        0
+         Number of HB acceptors  =      693   Number of HB donors  =       85
+         Number of NB exclusions =        0   Total charge =   -2.00000
+  
+ CHARMM>     
+  
+ CHARMM>    !minimize the whole system for a little while
+ CHARMM>    mini sd nstep 100 nprint 5 inbfrq 10 ihbfrq 0
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  = 14.000 CTEXNB =999.000 CTONNB = 10.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are        0 atom  pairs and        0 atom  exclusions.
+ There are        0 group pairs and        0 group exclusions.
+ <MAKINB> with mode   5 found   4059 exclusions and   2048 interactions(1-4)
+ <MAKGRP> found    756 group exclusions.
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   606662 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31482 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+
+
+ STEEPD> An energy minimization has been requested.
+
+ NSTEP  =          100   NPRINT =            5
+ STEP   =    0.0200000   TOLFUN =    0.0000000
+ TOLGRD =    0.0000000   TOLSTP =    0.0000000
+
+MINI MIN: Cycle      ENERgy      Delta-E         GRMS    Step-size
+MINI INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+MINI EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>        0  -4405.10007      0.00000      3.84675      0.02000
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      491.19244  -4896.39796      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>        5  -5263.47524    858.37516      1.21279      0.02074
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      430.98965  -5694.57032      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        10
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   608226 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31501 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       10  -5681.95709    418.48185      1.67174      0.02150
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      515.08981  -6197.15234      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       15  -5849.33416    167.37707      1.80934      0.02229
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      550.01730  -6399.45690      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        20
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   610397 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31600 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       20  -5964.67487    115.34071      1.82527      0.02311
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      583.82912  -6548.60943      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       25  -6059.19851     94.52364      1.91567      0.02396
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      627.29649  -6686.60044      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        30
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   612724 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31691 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       30  -6200.59523    141.39672      0.68993      0.01035
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      673.83177  -6874.53244      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       35  -6268.37358     67.77835      0.77627      0.01073
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      703.53975  -6972.01877      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        40
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   614832 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31763 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       40  -6327.00940     58.63583      0.84943      0.01113
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      725.88572  -7053.00056      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       45  -6373.29919     46.28978      1.03438      0.01154
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      743.11026  -7116.51489      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        50
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   616997 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31860 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       50  -6414.51479     41.21561      1.10491      0.01196
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      759.56421  -7174.18444      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       55  -6463.05933     48.54454      0.34543      0.00517
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      755.08526  -7218.25003      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        60
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   618954 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    31902 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       60  -6480.12473     17.06540      1.20831      0.01286
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      787.39041  -7267.62058      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       65  -6525.67073     45.54600      0.32752      0.00555
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      779.15946  -7304.93563      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        70
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   620722 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32011 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       70  -6551.63429     25.96356      0.30816      0.00576
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      790.22046  -7341.96019      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       75  -6575.96128     24.32698      0.34129      0.00597
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      798.87605  -7374.94276      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        80
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   622746 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32092 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       80  -6601.32312     25.36185      0.31255      0.00619
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      811.15283  -7412.58139      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       85  -6620.33717     19.01404      0.61727      0.00642
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      816.36277  -7436.80538      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        90
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   624849 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32192 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>       90  -6640.67753     20.34036      0.60446      0.00665
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      823.55101  -7464.33397      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>       95  -6660.16406     19.48653      0.62370      0.00690
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      830.06534  -7490.33484      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step       100
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   626591 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32225 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>      100  -6677.35257     17.18851      0.65988      0.00715
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      836.42425  -7513.88226      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+ STEEPD> Minimization exiting with number of steps limit (       100) exceeded.
+
+STPD MIN: Cycle      ENERgy      Delta-E         GRMS    Step-size
+STPD INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+STPD EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ ----------       ---------    ---------    ---------    ---------    ---------
+STPD>      100  -6677.35257     17.18851      0.65988      0.00858
+STPD INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+STPD EXTERN>      836.42425  -7513.88226      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+  
+ CHARMM>    mini abnr nstep 1500 nprint 500
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  = 14.000 CTEXNB =999.000 CTONNB = 10.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  1.500 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are   626591 atom  pairs and     6107 atom  exclusions.
+ There are        0 group pairs and      756 group exclusions.
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   626591 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32225 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+
+
+ ABNER> An energy minimization has been requested.
+
+ EIGRNG =    0.0005000   MINDIM =            5
+ NPRINT =          500   NSTEP  =         1500
+ PSTRCT =    0.0000000   SDSTP  =    0.0200000
+ STPLIM =    1.0000000   STRICT =    0.1000000
+ TOLFUN =    0.0000000   TOLGRD =    0.0000000
+ TOLITR =          100   TOLSTP =    0.0000000
+ FMEM   =    0.0000000
+MINI MIN: Cycle      ENERgy      Delta-E         GRMS    Step-size
+MINI INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+MINI EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ ----------       ---------    ---------    ---------    ---------    ---------
+MINI>        0  -6677.35257     17.18851      0.65988      0.00000
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>      836.42425  -7513.88226      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        10
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   632227 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32438 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        20
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   641832 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    32731 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        30
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   652112 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    33027 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        40
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   662581 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    33300 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        50
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   673105 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    33696 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        60
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   683385 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34138 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        70
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   688483 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34224 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        80
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   688888 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34280 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step        90
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   691416 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34409 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       100
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   694383 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34535 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       110
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   698599 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34696 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       120
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   701289 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34770 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       130
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   704584 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34792 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       140
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   706900 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34938 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       150
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   709265 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34955 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       160
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   711470 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34998 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       170
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   711667 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    34984 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       180
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   712485 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35018 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       190
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   714158 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35041 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       200
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   714916 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35050 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       210
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   715576 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35106 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       220
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   716044 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35114 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       230
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   717089 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35124 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       240
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   718341 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35230 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       250
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   719478 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35318 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       260
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   721695 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35375 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       270
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   722625 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35432 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       280
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   723490 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35448 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       290
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   723780 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35459 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       300
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   724176 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35506 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       310
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   724912 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35535 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       320
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   725123 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35524 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       330
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   725454 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35508 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       340
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   725688 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35501 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       350
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   725832 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35495 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       360
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   726058 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35474 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       370
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   726113 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35491 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       380
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   726349 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35524 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       390
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   726911 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35552 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       400
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   727718 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35585 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       410
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   728012 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35602 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       420
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   728414 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35668 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       430
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   728679 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35645 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       440
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   728779 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35637 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       450
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   728922 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35637 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       460
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729096 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35655 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       470
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729373 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35664 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       480
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729974 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35680 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       490
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729882 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35668 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       500
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729826 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35669 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>      500  -7507.50804    830.15547      0.02689      0.02056
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>     1031.41296  -8539.02645      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step       510
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729879 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35654 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       520
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729842 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35650 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       530
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729888 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35690 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       540
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   729954 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35687 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       550
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730111 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35679 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       560
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730127 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35669 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       570
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730148 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35711 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       580
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730205 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35712 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       590
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730336 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35705 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       600
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730535 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35758 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       610
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730724 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35762 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       620
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730827 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35765 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       630
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   730906 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35763 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       640
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   731190 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35768 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       650
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   731375 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35774 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       660
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   732337 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35819 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       670
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   732669 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35792 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       680
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   733052 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35781 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       690
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   733321 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35802 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       700
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   733741 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35800 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       710
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   734097 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35813 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       720
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   734178 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35798 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       730
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   734287 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35792 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       740
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   734416 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35793 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       750
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   734665 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35814 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       760
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   734810 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35818 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       770
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735202 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35789 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       780
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735780 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35822 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       790
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735727 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35839 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       800
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735637 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35821 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       810
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735592 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35789 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       820
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735682 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35778 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       830
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   735724 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35782 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       840
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   736053 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35761 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       850
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   736457 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35790 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       860
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   736742 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35777 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       870
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   737035 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35773 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       880
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   737327 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35802 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       890
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   737518 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35780 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       900
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   738223 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35804 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       910
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   738660 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35850 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       920
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   738592 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35829 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       930
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   738687 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35844 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       940
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   738904 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35845 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       950
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   739145 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35856 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       960
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   739453 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35873 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       970
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740191 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35959 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       980
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740220 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35953 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step       990
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740287 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35962 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1000
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740305 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35987 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>     1000  -7556.54162     49.03358      0.02195      0.01766
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>     1033.88891  -8590.53598      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step      1010
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740321 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35965 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1020
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740383 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35975 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1030
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740467 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35935 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1040
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740477 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35941 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1050
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740448 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35931 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1060
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740447 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35927 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1070
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740458 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35927 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1080
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740487 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35928 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1090
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740566 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35915 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1100
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740573 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35916 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1110
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740565 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35895 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1120
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740612 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35896 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1130
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740623 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35900 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1140
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740602 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35894 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1150
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740575 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35890 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1160
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740647 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35887 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1170
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740685 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35900 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1180
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740728 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35891 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1190
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740862 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35885 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1200
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740898 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35886 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1210
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740939 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35895 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1220
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   741014 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35887 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1230
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   741111 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35896 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1240
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   741076 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35889 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1250
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740989 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35881 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1260
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   741000 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35871 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1270
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740958 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35870 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1280
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740896 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35873 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1290
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740892 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35872 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1300
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740894 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35881 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1310
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740891 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35879 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1320
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740850 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35877 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1330
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740845 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35878 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1340
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740828 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35882 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1350
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740828 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35884 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1360
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740834 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35885 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1370
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740825 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35887 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1380
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740819 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35885 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1390
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740822 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35877 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1400
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740817 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1410
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740813 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35875 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1420
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740809 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35874 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1430
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740811 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35874 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1440
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740813 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1450
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740814 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1460
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740814 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1470
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740812 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1480
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740814 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1490
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740813 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+ UPDECI: Nonbond update at step      1500
+ Generating nonbond list with Exclusion mode = 5
+ == PRIMARY == SPACE FOR   754872 ATOM PAIRS AND        0 GROUP PAIRS
+
+ General atom nonbond list generation found:
+   740812 ATOM PAIRS WERE FOUND FOR ATOM LIST
+    35876 GROUP PAIRS REQUIRED ATOM SEARCHES
+
+MINI>     1500  -7563.61145      7.06983      0.00004      0.00003
+MINI INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+MINI EXTERN>     1030.57791  -8594.29481      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+ ABNER> Minimization exiting with number of steps limit ( 1500) exceeded.
+
+ABNR MIN: Cycle      ENERgy      Delta-E         GRMS    Step-size
+ABNR INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+ABNR EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+ ----------       ---------    ---------    ---------    ---------    ---------
+ABNR>     1500  -7563.61145      7.06983      0.00004      0.00002
+ABNR INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+ABNR EXTERN>     1030.57791  -8594.29481      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+  
+ CHARMM>     
+  
+ CHARMM>    open write formatted unit 21 name water_dyna_equi.res
+ VOPEN> Attempting to open::water_dyna_equi.res::
+ OPNLGU> Unit 21 opened for WRITE access to water_dyna_equi.res
+  
+ CHARMM>    dynamics langevin strt-
+ CHARMM>            nstep 1000 timestep 0.005-
+ CHARMM>            nprint 50 iprfrq 250-
+ CHARMM>            iseed 918237912-
+ CHARMM>            ilbfrq 10 rbuffer 5 tbath 300-
+ CHARMM>            iuncrd -1 nsavc 00 iasors 1-
+ CHARMM>            firstt 300 iunwri 21-
+ CHARMM>            inbfrq 10 ihbfrq 0 wmin 0.8
+ WARNING FROM DECODF - COULD NOT CONVERT STRING
+ 21INBFRQ
+ZERO WILL BE RETURNED.
+ WARNING FROM DECODI - COULD NOT CONVERT STRING
+ 21INBFRQ
+ZERO WILL BE RETURNED.
+  IUNREA = -1         IUNWRI =  0          IUNOS = -1
+  IUNCRD = -1         IUNVEL = -1          KUNIT = -1
+
+ NONBOND OPTION FLAGS: 
+     ELEC     VDW      ATOMs    CDIElec  SHIFt    VATOm    VSWItch 
+     BYGRoup  NOEXtnd  NOEWald 
+ CUTNB  = 14.000 CTEXNB =999.000 CTONNB = 10.000 CTOFNB = 12.000
+ CGONNB =  0.000 CGOFNB = 10.000
+ WMIN   =  0.800 WRNMXD =  0.500 E14FAC =  1.000 EPS    =  1.000
+ NBXMOD =      5
+ There are   740812 atom  pairs and     6107 atom  exclusions.
+ There are        0 group pairs and      756 group exclusions.
+ WARNING FROM DECODF - COULD NOT CONVERT STRING
+ 1FIRSTT
+ZERO WILL BE RETURNED.
+ WARNING FROM DECODI - COULD NOT CONVERT STRING
+ 1FIRSTT
+ZERO WILL BE RETURNED.
+ WARNING FROM DECODF - COULD NOT CONVERT STRING
+ 250ISEED
+ZERO WILL BE RETURNED.
+ WARNING FROM DECODI - COULD NOT CONVERT STRING
+ 250ISEED
+ZERO WILL BE RETURNED.
+ WARNING FROM DECODF - COULD NOT CONVERT STRING
+ 0.005NPRINT
+ZERO WILL BE RETURNED.
+ WARNING FROM DECODF - COULD NOT CONVERT STRING
+ 300IUNCRD
+ZERO WILL BE RETURNED.
+ DCNTRL> Langevin integration requested.
+   NSTEP =      100    NSAVC =        0    NSAVV =       10
+  ISCALE =        0   ISCVEL =        0   IASORS =        0
+  IASVEL =        1   ICHECW =        1   NTRFRQ =        0
+  IHTFRQ =        0   IEQFRQ =        0   NPRINT =      100
+  INBFRQ =       10   IHBFRQ =        0   IPRFRQ =      100
+  ILBFRQ =       50   IMGFRQ =        0
+  ISVFRQ =        0   NCYCLE =       10    NSNOS =       10
+  FIRSTT =     0.000  TEMINC =     5.000  TSTRUC =  -999.000
+  FINALT =   298.150  TWINDH =    10.000  TWINDL =   -10.000
+
+  TIME STEP =  2.04548E-02 AKMA       1.00000E-03 PS
+
+  RANDOM NUM. GEN. SEED(S) = 38991804 38991804 38991804 38991804
+
+           SHAKE TOLERANCE =     0.10000E-09
+ NUMBER OF DEGREES OF FREEDOM =   3690
+
+          GAUSSIAN OPTION                  IS            1
+          VELOCITIES ASSIGNED AT TEMPERATURE =      0.0000
+          SEED FOR RANDOM NUMBER GENERATOR IS:
+          SEEDS> 38991804 38991804 38991804 38991804
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   8.39687801E-02   0.65317302      -0.10026472    
+     VELOCITY          :    0.0000000        0.0000000        0.0000000    
+     ANGULAR MOMENTUM  :    0.0000000        0.0000000        0.0000000    
+     KINETIC ENERGY    :    0.0000000    
+ **** Warning ****  The following extraneous characters
+ were found while command processing in DCNTRL
+ 1000  50  918237912ILBFRQ 10   -1   300  10
+ LNGFIL: TBATH =     0.000000  DELTA =    0.020455
+ LNGFIL: Langevin dynamics setup for     615 atoms
+ LNGFIL: RBUF =    5.000000
+ LNGFIL: SXREF =    0.000000 SYREF =    0.000000 SZREF =    0.000000
+DYNA DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+DYNA PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+DYNA INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+DYNA EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+DYNA PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+DYNA>        0      0.00000  -7563.61145      0.00000  -7563.61145      0.00000
+DYNA PROP>         19.03484  -7563.61145      0.00000      0.00000     -0.01025
+DYNA INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+DYNA EXTERN>     1030.57791  -8594.29481      0.00000      0.00000      0.00000
+DYNA PRESS>       158.95941   -158.95258      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ UPDECI: Nonbond update at step        10
+ UPDECI: Nonbond update at step        20
+ UPDECI: Nonbond update at step        30
+ UPDECI: Nonbond update at step        40
+ UPDECI: Nonbond update at step        50
+ UPDECI: Nonbond update at step        60
+ UPDECI: Nonbond update at step        70
+ UPDECI: Nonbond update at step        80
+ UPDECI: Nonbond update at step        90
+DYNA>      100      0.10000  -7558.58805      1.71211  -7560.30016      0.46698
+DYNA PROP>         19.04457  -7558.61842      1.66703     -0.03037    271.80467
+DYNA INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+DYNA EXTERN>     1048.01233  -8608.41793      0.00000      0.00000      0.00000
+DYNA PRESS>       202.08004   -383.28315      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ DYNAMC> Averages for the last 100 steps:
+AVER DYN: Step         Time      TOTEner        TOTKe       ENERgy  TEMPerature
+AVER PROP:             GRMS      HFCTote        HFCKe       EHFCor        VIRKe
+AVER INTERN:          BONDs       ANGLes       UREY-b    DIHEdrals    IMPRopers
+AVER EXTERN:        VDWaals         ELEC       HBONds          ASP         USER
+AVER PRESS:            VIRE         VIRI       PRESSE       PRESSI       VOLUme
+ ----------       ---------    ---------    ---------    ---------    ---------
+AVER>      100      0.10000  -7560.82494      1.65803  -7562.48297      0.45223
+AVER PROP>         19.04752  -7560.85599      1.61465     -0.03105    354.25515
+AVER INTERN>        0.09253      0.01291      0.00000      0.00000      0.00000
+AVER EXTERN>     1040.05092  -8602.63933      0.00000      0.00000      0.00000
+AVER PRESS>       182.76469   -418.93479      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+ DYNAMC> RMS fluctuations for the last 100 steps:
+FLUC>      100      0.10000      1.43408      0.60435      1.04421      0.16484
+FLUC PROP>          0.00567      1.43265      0.58820      0.00545     55.41099
+FLUC EXTERN>        5.71238      4.74484      0.00000      0.00000      0.00000
+FLUC PRESS>        14.08856     22.93312      0.00000      0.00000      0.00000
+ ----------       ---------    ---------    ---------    ---------    ---------
+
+     DRIFT/STEP (LAST-TOTAL):    4.91911058E-02   4.91911058E-02
+     E AT STEP 0            :    -7563.3401       -7563.3401    
+     CORR. COEFFICIENT      :    0.99113681       0.99113681    
+
+     DETAILS ABOUT CENTRE OF MASS
+     POSITION          :   8.24699296E-02   0.65317867      -0.10117424    
+     VELOCITY          :  -8.95596771E-04   3.31298146E-05  -5.61784307E-04
+     ANGULAR MOMENTUM  :    31.994101        46.298956       -32.794456    
+     KINETIC ENERGY    :   6.19781602E-03
+  
+ CHARMM>     
+  
+ CHARMM>    open write card unit 28 name solvated_3i40_equilibrated.pdb
+ VOPEN> Attempting to open::solvated_3i40_equilibrated.pdb::
+ OPNLGU> Unit 28 opened for WRITE access to solvated_3i40_equilibrated.pdb
+  
+ CHARMM>    write coor pdb unit 28
+ RDTITL> STOP
+ RDTITL> No title read.
+  Write CHARMM-pdb format
+  
+ CHARMM>    stop
+ VCLOSE: Closing unit   21 with status "KEEP"
+ VCLOSE: Closing unit   23 with status "KEEP"
+ VCLOSE: Closing unit   28 with status "KEEP"
+
+      $$$$$$  New timer profile Local node$$$$$
+
+   Shake Setup                     0.00 Other:            0.00
+   First List                      0.02 Other:            0.00
+   Shake time                      1.03 Other:            0.00
+      Comm coords                     0.00 Other:            0.00
+         Comm variables                  0.00 Other:            0.00
+         Save shake coords               0.16 Other:            0.00
+         Heuristic check                 0.00 Other:            0.00
+         Temp and virial calc            0.00 Other:            0.00
+      dynamc                          0.16 Other:            0.00
+   Dynamics total                  0.16 Other:            0.00
+      Heuristic check                 0.00 Other:            0.00
+      NBONDS                          3.88 Other:            0.00
+   List time                       3.88 Other:            0.00
+         Electrostatic & VDW            33.18 Other:            0.00
+      Nonbond force                  33.19 Other:            0.01
+         Bond energy                     0.04 Other:            0.00
+         Angle energy                    0.07 Other:            0.00
+         Dihedral energy                 0.00 Other:            0.00
+         Restraints energy               0.00 Other:            0.00
+      INTRNL energy                   0.13 Other:            0.02
+      Comm energy                     0.00 Other:            0.00
+      Comm force                      0.00 Other:            0.00
+   Energy time                    33.41 Other:            0.09
+ Total time                     40.24 Other:            1.73
+
+         $$$$$$  Average   profile $$$$$
+
+   Shake Setup                     0.00 Other:            0.00
+   First List                      0.02 Other:            0.00
+   Shake time                      1.03 Other:            0.00
+      Comm coords                     0.00 Other:            0.00
+         Comm variables                  0.00 Other:            0.00
+         Save shake coords               0.16 Other:            0.00
+         Heuristic check                 0.00 Other:            0.00
+         Temp and virial calc            0.00 Other:            0.00
+      dynamc                          0.16 Other:            0.00
+   Dynamics total                  0.16 Other:            0.00
+      Heuristic check                 0.00 Other:            0.00
+      NBONDS                          3.88 Other:            0.00
+   List time                       3.88 Other:            0.00
+         Electrostatic & VDW            33.18 Other:            0.00
+      Nonbond force                  33.19 Other:            0.01
+         Bond energy                     0.04 Other:            0.00
+         Angle energy                    0.07 Other:            0.00
+         Dihedral energy                 0.00 Other:            0.00
+         Restraints energy               0.00 Other:            0.00
+      INTRNL energy                   0.13 Other:            0.02
+      Comm energy                     0.00 Other:            0.00
+      Comm force                      0.00 Other:            0.00
+   Energy time                    33.41 Other:            0.09
+ Total time                     40.24 Other:            1.73
+
+                    NORMAL TERMINATION BY NORMAL STOP
+                    NO WARNINGS WERE ISSUED
+
+                    $$$$$ JOB ACCOUNTING INFORMATION $$$$$
+                     ELAPSED TIME:    40.25  SECONDS 
+                         CPU TIME:    40.24  SECONDS 

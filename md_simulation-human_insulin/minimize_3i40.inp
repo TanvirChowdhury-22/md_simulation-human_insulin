@@ -1,0 +1,44 @@
+*Minimizing Energy Insulin
+*
+
+open read card unit 25 name top_all27_prot_na.inp
+read rtf card unit 25
+close unit 25
+
+open read card unit 26 name par_all27_prot_na.inp
+read para card unit 26
+close unit 26
+
+open read card unit 27 name init_3i40.psf
+read psf card unit 27
+ 
+open read card unit 28 name init_3i40.pdb
+read coor pdb unit 28
+
+! Non bonded interaction
+nbond cutnb 14.0 ctonnb 10.0 ctofnb 12.0 vswitch shift cdielectric epsilon 1.0 -e14fac 1.0 wmin 1.5
+
+ic fill 
+ic para 
+ic build
+
+energy
+
+!minimizing by SD method for 100 times 
+mini sd nsteps 100 nprint 10
+
+energy
+
+!minimizing by ABNR method for 1500 times
+mini abnr nsteps 1500 nprint 500
+
+energy
+
+open write card unit 30 name minimize_3i40.psf
+write psf card unit 30
+
+open write card unit 32 name minimize_3i40.pdb
+write coor pdb unit 32
+
+stop
+

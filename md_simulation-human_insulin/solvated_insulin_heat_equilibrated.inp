@@ -1,0 +1,58 @@
+*BPS ke ekhon heat kora hobe
+*
+open read unit 1 card name top_all27_prot_na.inp
+read rtf card unit 1
+close unit 1
+
+open read card unit 2 name par_all27_prot_na.inp
+read para card unit 2
+close unit 2
+
+open read card unit 23 name solvated_3i40.psf
+read psf card unit 23 
+close unit 23
+
+open read card unit 24 name solvated_insulin_heat.pdb
+read coor pdb unit 24
+close unit 24
+
+!Loading boundary potential for water
+open read card unit 21 name bp30.pot
+sbound read unit 21
+close unit 21
+
+sbound set xreference 0.0 yreference 0.0 zreference 0.0 -
+    assign 1 select ((resname tip3 .and. type oh2)) end 
+!.and. (point 0.0 0.0 0.0 cut 8.0)) end
+
+
+!shake bonh
+
+!Setting langevin friction coefficient
+scalar fbeta set 0.0 select (all) end
+scalar fbeta set 60.0 select ( resname tip3 .and. type oh2) end
+
+
+shake bonh
+
+! Non bonded interaction
+nbond cutnb 14.0 ctonnb 10.0 ctofnb 12.0 vswitch shift cdielectric epsilon 1.0  wmin 1.5  
+
+!Load the previous open the restart file
+open read card unit 27 name solvated_insulin_heat.res
+open write card unit 22 name solvated_insulin_heat_equilibrated.res
+
+dynamics langevin restrt-
+        nstep 6000 timestep 0.0005 -
+        nprint 500 iprfrq 100 nsavc 100 -
+        firstt 300.0  finalt 300.0 twindh 5.0 twindl -5.0 -
+        iasors 1 iasvel 1 ilbfrq 5 rbuffer 7 -
+        inbfrq 10 iscvel 0 ichecw 0 tbath 300 -
+        iunwrit 22 iunread 27 ieqfrq 1
+
+open write card unit 28 name solvated_insulin_heat_equilibrated.pdb       
+write coor pdb unit 28
+
+stop
+
+

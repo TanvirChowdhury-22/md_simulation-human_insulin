@@ -1,0 +1,56 @@
+*Solvated Insulin Equilibration
+*
+ 
+open read unit 1 card name top_all27_prot_na.inp
+read rtf card unit 1
+close unit 1
+
+open read card unit 2 name par_all27_prot_na.inp
+read para card unit 2
+close unit 2
+
+!Load protein-water psf and pdb
+open read card unit 23 name solvated_3i40.psf
+read psf card unit 23
+
+open read card unit 27 name solvated_3i40.pdb
+read coor pdb unit 27
+close unit 27
+
+!Loading boundary potential for water
+open read card unit 21 name bp30.pot
+sbound read unit 21
+close unit 21
+
+sbound set xreference 0.0 yreference 0.0 zreference 0.0 -
+    assign 1 select ((resname tip3 .and. type oh2)) end 
+!.and. (point 0.0 0.0 0.0 cut 8.0)) end
+
+shake bonh
+
+!Setting langevin friction coefficient
+scalar fbeta set 0.0 select (all) end
+scalar fbeta set 60.0 select (resname tip3 .and. type oh2) end
+
+cons fix purge select (.not. (segid SOLV .and. resname tip3)) end
+
+!minimize the whole system for a little while
+!mini sd nstep 100 nprint 5 inbfrq 10 ihbfrq 0
+!mini abnr nstep 1500 nprint 500
+
+open write formatted unit 21 name water_dyna_equi.res
+dynamics langevin strt -
+        nstep 6000 timestep 0.001 -
+        nprint 50 iprfrq 250 -
+        iseed 918237912 -
+        ilbfrq 10 rbuffer 7 tbath 0.0 -
+        iuncrd -1 nsavc 00 iasors 1 -
+        firstt 0.0 finalt 0.0 iunwri 21 -
+        inbfrq 10 ihbfrq 0 wmin 0.8
+
+open write card unit 28 name solvated_3i40_equilibrated.pdb
+write coor pdb unit 28
+stop
+
+
+
